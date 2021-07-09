@@ -3,7 +3,7 @@ from django.shortcuts import render, HttpResponse
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Article
-from .serializers import ArticleSerializer
+from .serializers import ArticleSerializer,UserSerializer
 from django.http import JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.decorators import api_view
@@ -15,13 +15,17 @@ from rest_framework import  mixins
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
-
+from django.contrib.auth.models import User
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication,)
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class =UserSerializer
 
 '''
 
