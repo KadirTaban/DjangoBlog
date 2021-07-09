@@ -1,5 +1,7 @@
 from django.db.migrations import serializer
 from django.shortcuts import render, HttpResponse
+from rest_framework.permissions import IsAuthenticated
+
 from .models import Article
 from .serializers import ArticleSerializer
 from django.http import JsonResponse
@@ -12,7 +14,22 @@ from rest_framework import generics
 from rest_framework import  mixins
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
-class ArticleViewSet(viewsets.ViewSet):
+from rest_framework.authentication import TokenAuthentication
+
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
+
+'''
+
+class ArticleViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
+    queryset = Article.objects.all()
+
+    serializer_class = ArticleSerializer
+
 
     def list(self,request):
         articles = Article.objects.all()
@@ -47,6 +64,8 @@ class ArticleViewSet(viewsets.ViewSet):
         article.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+'''
 
 '''
 class ArticleList(generics.GenericAPIView, mixins.ListModelMixin, mixins.CreateModelMixin):
