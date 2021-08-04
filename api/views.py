@@ -21,11 +21,7 @@ class ArticleViewSet(viewsets.ModelViewSet):
     serializer_class = ArticleSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication,)
-    def post(self, request, *args, **kwargs):
-        cover = request.data['cover']
-        title = request.data['title']
-        Article.objects.create(title=title, cover=cover)
-        return HttpResponse({'message': 'Article created'},status=200)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

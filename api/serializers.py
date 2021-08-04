@@ -6,7 +6,7 @@ from rest_framework.authtoken.views import Token
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        fields = ['id','title','cover']
+        fields = ['id','description']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
