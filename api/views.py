@@ -15,12 +15,14 @@ from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
 from django.contrib.auth.models import User
+from django.shortcuts import render
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication,)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
