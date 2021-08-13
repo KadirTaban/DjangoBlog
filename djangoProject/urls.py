@@ -13,9 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,include
 from rest_framework.authtoken.views import obtain_auth_token
+from api.views import ArticleViewSet,UserViewSet
+from rest_framework.routers import DefaultRouter
+
+from djangoProject import settings
+
+router = DefaultRouter()
+router.register('articles',ArticleViewSet,basename='articles')
+router.register('users',UserViewSet)
 
 
 urlpatterns = [
@@ -24,3 +33,4 @@ urlpatterns = [
     path('auth/',obtain_auth_token),
 
 ]
+
